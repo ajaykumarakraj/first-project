@@ -15,6 +15,7 @@ const app = express();
 app.use(express.json());
 app.use(morgan("dev"));
 
+app.use("/api/v1/auth", require("./routes/authRout"));
 // rest api
 app.get("/", (req, res) => {
   res.send("<h1>welcome to mern code  ok </h1>");
