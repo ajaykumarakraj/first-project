@@ -1,5 +1,7 @@
 const userModel = require("../models/userModel");
+
 const registerController = async (req, res) => {
+  console.log('htting')
   try {
     const { name, email, password, phone, address } = req.body;
     //validation
@@ -43,7 +45,7 @@ const registerController = async (req, res) => {
       user,
     });
   } catch (error) {
-    console.log(error);
+    console.log(error, 'error is this');
     resizeBy.status(500).send({
       success: false,
       message: "error in register",
