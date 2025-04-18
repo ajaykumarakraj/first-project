@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Express JS Form</title>
+</head>
+<body>
+  <h1>Submit Your Data</h1>
+  <form id="userForm">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required><br><br>
+
+    <label for="age">Age:</label>
+    <input type="number" id="age" name="age" required><br><br>
+
+    <button type="submit">Submit</button>
+  </form>
+
+  <h3 id="responseMessage"></h3>
+
+  <script>
+    document.getElementById('userForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById('name').value;
+      const age = document.getElementById('age').value;
+
+      fetch('/submit-data', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `name=${name}&age=${age}`,
+      })
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('responseMessage').innerText = data;
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+    });
+  </script>
+</body>
+</html>

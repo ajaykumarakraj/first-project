@@ -22,13 +22,10 @@ const userSchema = mongoose.Schema(
       type: String,
       require: true,
     },
-    role: {
-      type: Number,
-      default: 0,
-    },
+   
   },
   { timestamps: true }
 );
 
-const users = mongoose.model("users", userSchema);
-module.exports = users;
+const userMode = mongoose.model("users", userSchema);
+module.exports = userMode;

@@ -1,28 +1,32 @@
 const express = require("express");
-const dotenv = require("dotenv");
-const morgan = require("morgan");
+var bodyParser = require('body-parser');
+const router = require("./routes/userRoutes");
 const connectDB = require("./config/db");
 
 //database config
-connectDB();
+connectDB()
 
-// config env
-dotenv.config();
 // rest obj
 const app = express();
-
+// set views engine 
+app.set('view engine', 'pug');
+// Set the directory where your Pug views are located
+app.set('views', './views');
 // middleware
 app.use(express.json());
-app.use(morgan("dev"));
+app.use(bodyParser.urlencoded({extended:false}))
 
-app.use("/api/v1/auth", require("./routes/authRout"));
-// rest api
-app.get("/", (req, res) => {
-  res.send("<h1>welcome to mern code  ok </h1>");
-});
+
+// router file route 
+app.use("/api/v1/auth",router)
+
+// views routes
+app.get("/",(req,res)=>{
+res.render("first")
+})
 //port
-const PORT = process.env.PORT || 8080;
+const PORT = 8000;
 // run at server
 app.listen(PORT, (req, res) => {
-  console.log(`server run ${process.env.DEV_MODE} at ${PORT}`);
+  console.log(`server run at ${PORT}`);
 });
